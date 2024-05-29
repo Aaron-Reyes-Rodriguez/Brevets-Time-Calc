@@ -1,0 +1,81 @@
+<html> <head>
+    <title>ACP Controle Times</title>
+    
+      <!-- 'viewport' is used by bootstrap to respond to device size -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+      <!-- Javascript:  JQuery from a content distribution network (CDN) -->
+      <script
+         src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+      </script>
+    
+      <!-- Bootstrap includes javascript and css  (must follow jquery) -->
+      <link rel="stylesheet"
+       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+       <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
+       </script>
+    
+      <!-- moment.js is the JavaScript equivalent of arrow.py -->
+      <script 
+        src="{{ url_for('static', filename="js/moment.min.js") }}"></script>
+    
+    </head>
+    
+       <!-- Our own style sheet -->
+       <link rel="stylesheet" href="/static/css/calc.css" />
+    
+    <body>
+<!-- bootstrap requires a 'container' div around content -->
+<div class="container">
+
+    <h1>ACP Brevet Times</h1>
+      <p>This worksheet is for ACP-sanctioned brevets between 200 and 1000 kilometers</p>
+    
+      <!--
+      -- If there are any warnings or other messages from a prior
+      -- request to the server, 
+      -- they appear above the rest of the content, just until the next 
+      -- action.  (This is only on request/response transactions that
+      -- result in regenerating the page, not on every xmlhttp request.) 
+      -->
+    
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    
+    <!-- Design on bootstrap grid -->
+<div class="row">
+<div class="col-md-12"> 
+<table class="control_time_table">
+    <tr>
+  <th style="text-align: center;">Brevet</th>
+  <th style="text-align: center;">Miles</th>
+  <th style="text-align: center;">Km</th>
+  <th style="text-align: center;">Location</th>
+  <th style="text-align: center;">Start date</th>
+  <th style="text-align: center;">Start time</th>
+  <th style="text-align: center;">Open</th>
+  <th style="text-align: center;">Close</th>
+    </tr>
+    {% for item in items %}
+    <tr>
+    <td nowrap style="padding: 10px; font-size: large; border: 1px solid black;"> {{ item.brevet }} </td>
+    <td nowrap style="padding: 10px; font-size: large; border: 1px solid black;"> {{ item.miles }} </td>
+    <td nowrap style="padding: 10px; font-size: large; border: 1px solid black;"> {{ item.distance }} </td>
+    <td nowrap style="padding: 10px; font-size: large; border: 1px solid black;"> {{ item.loc }} </td>
+    <td nowrap style="padding: 10px; font-size: large; border: 1px solid black;"> {{ item.date }} </td>
+    <td nowrap style="padding: 10px; font-size: large; border: 1px solid black;"> {{ item.time }} </td>
+    <td nowrap style="padding: 10px; font-size: large; border: 1px solid black;"> {{ item.open }} </td>
+    <td nowrap style="padding: 10px; font-size: large; border: 1px solid black;"> {{ item.close }} </td>
+    </tr>
+    {% endfor %}
+</table>
+</div> 
+</div>

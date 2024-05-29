@@ -1,0 +1,15 @@
+version: '3.3'
+services:
+  web:
+    build: .
+    command: python -u flask_brevets.py
+    ports:
+      - "5001:5000"
+    volumes:
+      - .:/app
+    environment:
+      - DB_PORT_27017_TCP_ADDR=db
+    links:
+      - db
+  db:
+    image: mongo 
