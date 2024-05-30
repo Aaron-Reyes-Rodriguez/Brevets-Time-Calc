@@ -175,11 +175,11 @@
 
          //For database
          distances.push(times.km);
-         openings.push(moment.utc(times.open).format("ddd M/D H:mm"));
-         closings.push(moment.utc(times.close).format("ddd M/D H:mm"));
+         openings.push(moment.utc(times.open).format("ddd M/D HH:mm"));
+         closings.push(moment.utc(times.close).format("ddd M/D HH:mm"));
          //For filling out times 
-         open_time_field.val( moment.utc(times.open).format("ddd M/D H:mm"));
-         close_time_field.val( moment.utc(times.close).format("ddd M/D H:mm"));
+         open_time_field.val( moment.utc(times.open).format("ddd M/D HH:mm"));
+         close_time_field.val( moment.utc(times.close).format("ddd M/D HH:mm"));
        } // end of handler function
      );// End of getJSON
     }

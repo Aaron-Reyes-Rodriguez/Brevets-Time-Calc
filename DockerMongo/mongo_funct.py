@@ -13,7 +13,9 @@ def add_to_db(distances, openings, closings, brev, loc, date, time, miles):
             'loc' : loc,
             'date' : date,
             'time' : time,
-            'miles' : miles 
+            'miles' : miles,
+            'day_time': date+time,
+            'dtb' : date+time+str(brev)
         }
     db.appdb.insert_one(item_doc)
     return
@@ -22,4 +24,8 @@ def get_all():
    """Gets all the database entries and puts them in a list"""
    _items = db.appdb.find()
    items = [item for item in _items]
-   return items 
+   return items
+
+def sort_asc(items):
+    """Sort db items in ascending order"""
+    return 
