@@ -33,17 +33,17 @@ Simple listing service from project 5 stored in MongoDB database.
 * This software creates a table to imput distances. You select a time and date to calulate the opening and closing time for each input distance. It does this by using Ajax and Flask. Ajax inputs the opening and closing times by first having javascript take in the input distance and starting date and time. It then sends those to the Flask file. Flask then applies the calculations with the functions in acp_times.py. Finally, Flask returns a ISO 8601 format date-time string for each close and open time back to Ajax and Ajax inputs the date and time in the correct format.
 
 #### Mongodb
-This project also uses mongodb databases. It does this with the following functionalites:
+* This project also uses mongodb databases. It does this with the following functionalites:
   1. A submit button that when clicked adds all entries from the ACP table and stores them in a database
   2. A display button which takes you to an hmtl page that shows all the entries that have been submitted into the database
 
 #### API
-Another feature in this project is the use of API. It does this with the following functionalites:
-  1. API
+* Another feature in this project is the use of API. It does this with the following functionalites:
+   1. API
       * http://<host:port>/listAll - returns all open and close times in the database
       * http://<host:port>/listOpenOnly - returns open times only
       * http://<host:port>/listCloseOnly - returns close times only 
-  2. API representation
+   2. API representation
       * http://<host:port>/listAll/csv should return all open and close times in CSV format
       * http://<host:port>/listOpenOnly/csv should return open times only in CSV format
       * http://<host:port>/listCloseOnly/csv should return close times only in CSV format
