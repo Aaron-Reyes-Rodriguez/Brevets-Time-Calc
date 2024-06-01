@@ -35,8 +35,8 @@ Simple listing service from project 5 stored in MongoDB database.
 #### Mongodb
 * This project also uses mongodb databases. It does this with the following functionalites:
 
-  1. A submit button that when clicked adds all entries from the ACP table and stores them in a database
-  1. A display button which takes you to an hmtl page that shows all the entries that have been submitted into the database
+      1. A submit button that when clicked adds all entries from the ACP table and stores them in a database
+      1. A display button which takes you to an hmtl page that shows all the entries that have been submitted into the database
 
 #### API
 * Another feature in this project is the use of API. It does this with the following functionalites:
@@ -49,19 +49,19 @@ Simple listing service from project 5 stored in MongoDB database.
 
 1. API representation
 
-      * http://<host:port>/listAll/csv should return all open and close times in CSV format
-      * http://<host:port>/listOpenOnly/csv should return open times only in CSV format
-      * http://<host:port>/listCloseOnly/csv should return close times only in CSV format
-      * http://<host:port>/listAll/json should return all open and close times in JSON format
-      * http://<host:port>/listOpenOnly/json should return open times only in JSON format
-      * http://<host:port>/listCloseOnly/json should return close times only in JSON format
+      * http://<host:port>/listAll/csv - returns all open and close times in CSV format
+      * http://<host:port>/listOpenOnly/csv - returns open times only in CSV format
+      * http://<host:port>/listCloseOnly/csv - returns close times only in CSV format
+      * http://<host:port>/listAll/json - returns all open and close times in JSON format
+      * http://<host:port>/listOpenOnly/json - returns open times only in JSON format
+      * http://<host:port>/listCloseOnly/json - returns close times only in JSON format
 
 1. A query parameter to get top "k" open and close times. For examples, see below.
 
-      * http://<host:port>/listOpenOnly/csv?top=3 should return top 3 open times only (in ascending order) in CSV format
-      * http://<host:port>/listOpenOnly/json?top=5 should return top 5 open times only (in ascending order) in JSON format
-      * http://<host:port>/listCloseOnly/csv?top=6 should return top 5 close times only (in ascending order) in CSV format
-      * http://<host:port>/listCloseOnly/json?top=4 should return top 4 close times only (in ascending order) in JSON format
-      
+      * http://<host:port>/listOpenOnly/csv?top=3 - returns top 3 open times only (in ascending order) in CSV format
+      * http://<host:port>/listOpenOnly/json?top=5 - returns top 5 open times only (in ascending order) in JSON format
+      * http://<host:port>/listCloseOnly/csv?top=6 - returns top 5 close times only (in ascending order) in CSV format
+      * http://<host:port>/listCloseOnly/json?top=4 - returns top 4 close times only (in ascending order) in JSON format
+
 1. There is also a consumer program (made in php). It shows the examples from up above and some extra more. 
     
