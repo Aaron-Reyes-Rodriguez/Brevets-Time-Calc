@@ -14,12 +14,18 @@ import logging
 import os
 from pymongo import MongoClient
 import mongo_funct
+#Api
+from flask_restful import Resource, Api
+import flaskapi
+import pandas as pd
+
 
 
 ###
 # Globals
 ###
 app = flask.Flask(__name__)
+api = Api(app)
 CONFIG = config.configuration()
 app.secret_key = CONFIG.SECRET_KEY
 ##Mongo
@@ -54,7 +60,11 @@ def empty_form():
 @app.route("/negative")
 def negative():
     """negative values"""
-    return flask.render_template('negative.html'), 400  
+    return flask.render_template('negative.html'), 400
+@app.route("/decimal")
+def decimal():
+    """decimal in top"""
+    return flask.render_template('decimal.html'), 400  
 ###############
 #
 # AJAX request handlers
@@ -119,6 +129,168 @@ def sumbit():
     }
     return flask.jsonify(result=rslt)
 
+
+###Api
+class ListAll(Resource):
+    def get(self):
+        top = request.args.get('top')
+        top = check_top(top)
+        if top == None:
+            return flask.redirect("/decimal") 
+        result = flaskapi.listAll(top)
+        return {"brevets":result}
+api.add_resource(ListAll, '/listAll')
+
+
+class ListOpen(Resource):
+    def get(self):
+        top = request.args.get('top')
+        top = check_top(top)
+        if top == None:
+            return flask.redirect("/decimal")  
+        result = flaskapi.listOpen(top)
+        return {"brevets":result}
+api.add_resource(ListOpen, '/listOpenOnly')
+
+
+class ListClose(Resource):
+    def get(self):
+        top = request.args.get('top')
+        top = check_top(top)
+        if top == None:
+            return flask.redirect("/decimal")  
+        result = flaskapi.listClose(top)
+        return {"brevets":result}
+api.add_resource(ListClose, '/listCloseOnly')
+
+
+###Api representations
+
+
+##json
+class ListAll_J(Resource):
+    def get(self):
+        top = request.args.get('top')
+        top = check_top(top)
+        if top == None:
+            return flask.redirect("/decimal") 
+        result = flaskapi.listAll(top)
+        return {"brevets":result}
+api.add_resource(ListAll_J, '/listAll/json')
+
+
+class ListOpen_J(Resource):
+    def get(self):
+        top = request.args.get('top')
+        top = check_top(top)
+        if top == None:
+            return flask.redirect("/decimal") 
+        result = flaskapi.listOpen(top)
+        return {"brevets":result}
+api.add_resource(ListOpen_J, '/listOpenOnly/json')
+
+
+class ListClose_J(Resource):
+    def get(self):
+        top = request.args.get('top')
+        top = check_top(top)
+        if top == None:
+            return flask.redirect("/decimal")  
+        result = flaskapi.listClose(top)
+        return {"brevets":result}
+api.add_resource(ListClose_J, '/listCloseOnly/json')    
+
+
+##csv
+class ListAll_C(Resource):
+    def get(self):
+        top = request.args.get('top')
+        top = check_top(top)
+        if top == None:
+            return flask.redirect("/decimal")
+        result = flaskapi.listAll(top)
+        #Turn into csv
+        csv_ret = check_csv(result, top)
+        if csv_ret!= None:
+            return csv_ret
+        
+        csv_format = pd.json_normalize(result, 'controls', ['distance', 'begin_date', 'begin_time'])
+        csv_format = csv_format[['distance', 'begin_date', 'begin_time','open', 'close']]
+        csv_ret = csv_format.to_csv(index=False)
+        return csv_ret
+api.add_resource(ListAll_C, '/listAll/csv')
+
+
+class ListOpen_C(Resource):
+    def get(self):
+        top = request.args.get('top')
+        top = check_top(top)
+        if top == None:
+            return flask.redirect("/decimal")
+        result = flaskapi.listOpen(top)
+        #Turn into csv
+        csv_ret = check_csv(result, top)
+        if csv_ret!= None:
+            return csv_ret
+        
+        csv_format = pd.json_normalize(result, 'controls', ['distance', 'begin_date', 'begin_time'])
+        csv_format = csv_format[['distance', 'begin_date', 'begin_time','open']]
+        csv_ret = csv_format.to_csv(index=False)
+        return csv_ret
+api.add_resource(ListOpen_C, '/listOpenOnly/csv') 
+
+
+class ListClose_C(Resource):
+    def get(self):
+        top = request.args.get('top')
+        top = check_top(top)
+        if top == None:
+            return flask.redirect("/decimal")
+        result = flaskapi.listClose(top)
+        #Turn into csv
+        csv_ret = check_csv(result, top)
+        if csv_ret!= None:
+            return csv_ret
+        
+        csv_format = pd.json_normalize(result, 'controls', ['distance', 'begin_date', 'begin_time'])
+        csv_format = csv_format[['distance', 'begin_date', 'begin_time','close']]
+        csv_ret = csv_format.to_csv(index=False)
+        return csv_ret
+api.add_resource(ListClose_C, '/listCloseOnly/csv') 
+
+
+def check_top(top):
+    if top == None:
+        top = -1
+    elif '.' in top or type(top) == float:
+       return None
+    else:
+        top = int(top)
+    return top
+
+def check_csv(result, top):
+    if len(result) == 0: #no data in db
+            return ''
+    elif top == 0: #show no times
+        d = result[0]['distance']
+        b = result[0]['begin_date']
+        t = result[0]['begin_time']
+        csv_format = pd.json_normalize({
+            'distance':d ,
+            'begin_date':b,
+            'begin_time':t,
+            'open':'',
+            'close':''
+            })
+        csv_ret = csv_format.to_csv(index=False)
+        return csv_ret 
+    else:
+        return None
+############
+#Sources:
+#json_normalize - #https://medium.com/@avishek2020/exploring-the-power-of-json-normalize-a-step-by-step-guide-to-flattening-complex-json-data-in-5a2d694dd26 
+#to_csv - #https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_csv.html 
+#json_normalize + to_csv - #https://www.gigasheet.com/post/convert-json-to-csv-python
 #############
 
 app.debug = CONFIG.DEBUG
