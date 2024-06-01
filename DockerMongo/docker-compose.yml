@@ -1,15 +1,23 @@
 version: '3.3'
 services:
-  web:
+  brevet_api:
     build: .
     command: python3 -u flask_brevets.py
-    ports:
-      - "5001:5000"
     volumes:
       - .:/app
+    ports:
+      - 5001:80
     environment:
       - DB_PORT_27017_TCP_ADDR=db
     links:
       - db
+  website:
+    image: php:apache  
+    volumes:
+      - ./website:/var/www/html 
+    ports:
+      - 5002:80  # host:container
+    depends_on:
+      - brevet_api
   db:
     image: mongo 
