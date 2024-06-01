@@ -52,8 +52,9 @@ def listAll(num):
         
         if max == True: 
             #get rid of excess times
-            while num != len(controls):
+            while num != ctr:
                 controls.pop()
+                ctr-=1
         
         tmp['controls'] = controls
         result.append(tmp)
@@ -109,8 +110,9 @@ def listOpen(num):
         
         if max == True: 
             #get rid of excess times
-            while num != len(controls):
+            while num != ctr:
                 controls.pop()
+                ctr-=1
         
         tmp['controls'] = controls
         result.append(tmp)
@@ -166,8 +168,9 @@ def listClose(num):
         
         if max == True: 
             #get rid of excess times
-            while num != len(controls):
+            while num != ctr:
                 controls.pop()
+                ctr-=1
         
         tmp['controls'] = controls
         result.append(tmp)
