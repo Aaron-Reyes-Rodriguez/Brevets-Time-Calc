@@ -18,9 +18,14 @@ Simple listing service from project 5 stored in MongoDB database.
  - 600-1000km minimum = 11.428 km/hr maximum = 34 km/hr
  - 1000-1300km minimum = 13.333 km/hr maximum = 34 km/hr
 
-* The opening time depends on the minimum time and the closing time depends on the maximum. The time calculation divides the distance by the speeds. The hours and minutes are calculated like this: * 100(km)/15(km/hr) = 6.6666… The number before the decimal is the hours and we turn the decimal (0.6666…) into minutes by multiplying by 60 and rounding to the nearest minute. We end up with 6 hours and 40 minutes. There is a small specification for the rounding for the minutes. Let’s say when we multiply by 60 for the minutes we get 7.5 minutes we round to 7 instead of 8.
+* The opening time depends on the minimum time and the closing time depends on the maximum. The time calculation divides the distance by the speeds. The hours and minutes are calculated like this:
 
-* For larger than 200 we separate the distances according to each row and apply the distances in said row. For example, let's say there is a control at 890km. The times are calculated in the following way: * Opening time - 200/34 + 200/32 + 200/30 + 290/28 = 29 Hours 29 minutes * Closing time - 200/15 + 200/15 + 200/15 + 290/11.428 = 65 Hours 23 minutes
+      * 100(km)/15(km/hr) = 6.6666… The number before the decimal is the hours and we turn the decimal (0.6666…) into minutes by multiplying by 60 and rounding to the nearest minute. We end up with 6 hours and 40 minutes. There is a small specification for the rounding for the minutes. Let’s say when we multiply by 60 for the minutes we get 7.5 minutes we round to 7 instead of 8.
+
+* For larger than 200 we separate the distances according to each row and apply the distances in said row. For example, let's say there is a control at 890km. The times are calculated in the following way: 
+
+      * Opening time - 200/34 + 200/32 + 200/30 + 290/28 = 29 Hours 29 minutes 
+      * Closing time - 200/15 + 200/15 + 200/15 + 290/11.428 = 65 Hours 23 minutes
 
 ### Special Cases
 * Let's say a control distance ends at a brevet. According to article 9 in the rules for the RUSA there are certain times the control must close at said brevet. In the article it says “(in hours and minutes, HH:MM) 13:30 for 200 KM, 20:00 for 300 KM, 27:00 for 400 KM, 40:00 for 600 KM, and 75:00 for 1000 KM”. This also implies that if a race is longer than the brevet the control distances after the brevet must still correspond to the brevet closing time. For example a control at 200km and 205km close at the same time.
