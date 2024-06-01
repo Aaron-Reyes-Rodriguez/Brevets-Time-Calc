@@ -43,22 +43,25 @@ Simple listing service from project 5 stored in MongoDB database.
 
 1. API
 
-   * http://<host:port>/listAll - returns all open and close times in the database
-   * http://<host:port>/listOpenOnly - returns open times only
-   * http://<host:port>/listCloseOnly - returns close times only 
+      * http://<host:port>/listAll - returns all open and close times in the database
+      * http://<host:port>/listOpenOnly - returns open times only
+      * http://<host:port>/listCloseOnly - returns close times only
+
 1. API representation
 
-   * http://<host:port>/listAll/csv should return all open and close times in CSV format
-   * http://<host:port>/listOpenOnly/csv should return open times only in CSV format
-   * http://<host:port>/listCloseOnly/csv should return close times only in CSV format
-   * http://<host:port>/listAll/json should return all open and close times in JSON format
-   * http://<host:port>/listOpenOnly/json should return open times only in JSON format
-   * http://<host:port>/listCloseOnly/json should return close times only in JSON format
+      * http://<host:port>/listAll/csv should return all open and close times in CSV format
+      * http://<host:port>/listOpenOnly/csv should return open times only in CSV format
+      * http://<host:port>/listCloseOnly/csv should return close times only in CSV format
+      * http://<host:port>/listAll/json should return all open and close times in JSON format
+      * http://<host:port>/listOpenOnly/json should return open times only in JSON format
+      * http://<host:port>/listCloseOnly/json should return close times only in JSON format
+
 1. A query parameter to get top "k" open and close times. For examples, see below.
 
-   * http://<host:port>/listOpenOnly/csv?top=3 should return top 3 open times only (in ascending order) in CSV format
-   * http://<host:port>/listOpenOnly/json?top=5 should return top 5 open times only (in ascending order) in JSON format
-   * http://<host:port>/listCloseOnly/csv?top=6 should return top 5 close times only (in ascending order) in CSV format
-   * http://<host:port>/listCloseOnly/json?top=4 should return top 4 close times only (in ascending order) in JSON format
+      * http://<host:port>/listOpenOnly/csv?top=3 should return top 3 open times only (in ascending order) in CSV format
+      * http://<host:port>/listOpenOnly/json?top=5 should return top 5 open times only (in ascending order) in JSON format
+      * http://<host:port>/listCloseOnly/csv?top=6 should return top 5 close times only (in ascending order) in CSV format
+      * http://<host:port>/listCloseOnly/json?top=4 should return top 4 close times only (in ascending order) in JSON format
+      
 1. There is also a consumer program (made in php). It shows the examples from up above and some extra more. 
     
